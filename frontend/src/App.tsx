@@ -1,8 +1,8 @@
 import FlightMap from "./components/Map/FlightMap";
-import useFlights from "./hooks/useFlights";
+import useWebSocket from "./hooks/useWebSocket";
 
 function App() {
-  const flights = useFlights();
+  const flights = useWebSocket();
 
   return (
     <FlightMap flights={flights} />
