@@ -27,6 +27,7 @@ const planeIcon = (heading: number) =>
 export default function FlightMap({
   flights,
 }: Props) {
+    console.log("Rendering map with flights:", flights);
   return (
     <MapContainer
       center={[10.5276, 76.2144]}
@@ -58,13 +59,12 @@ export default function FlightMap({
 
             Altitude:
             {" "}
-            {flight.altitude}
-
+            {Math.round(flight.altitude*3.28084)} ft
             <br />
 
             Speed:
             {" "}
-            {flight.velocity}
+            {Math.round(flight.velocity*1.94384)} kt
           </Popup>
         </Marker>
       ))}
