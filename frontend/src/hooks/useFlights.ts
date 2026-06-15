@@ -1,21 +1,38 @@
 import { useEffect, useState } from "react";
+
+import { api } from "../services/api";
+
 import type { Flight } from "../types/flight";
 
 export default function useFlights() {
-  const [flights, setFlights] = useState<Flight[]>([]);
+  const [flights, setFlights] =
+    useState<Flight[]>([]);
 
   useEffect(() => {
-    setFlights([
-      {
-        id: "1",
-        callsign: "TEST123",
-        latitude: 10.5276,
-        longitude: 76.2144,
-        altitude: 35000,
-        velocity: 850,
-        heading: 90,
-      },
-    ]);
+    const loadFlights =
+      async () => {
+        try {
+          const response =
+            await api.get("/flights");
+
+          setFlights(
+            response.data
+          );
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+    loadFlights();
+
+    const interval =
+      setInterval(
+        loadFlights,
+        10000
+      );
+
+    return () =>
+      clearInterval(interval);
   }, []);
 
   return flights;
